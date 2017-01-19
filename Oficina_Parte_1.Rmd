@@ -474,16 +474,16 @@ m4 <- cbind(m4, m4[,4]^2)
 
 O Dataframe em R, tem a vantagem de que as colunas (variáveis) podem ter diferente tipo de dados (numérico, lógico, fatorial..)
 
-Importar dados_est1 com read.csv2
+Importar bloco1 com read.csv2
 
 ---
 
 
 ```{r }
 
-dados_est1 <- read.csv2("dados_est1.csv")
+bloco1 <- read.csv2("bloco1.csv")
 
-d1 <- dados_est1   #  mudar nome de objeto para trabalho
+d1 <- bloco1   #  mudar nome de objeto para trabalho
 
 dim(d1)           # dimensoes linha/col
 
@@ -521,7 +521,7 @@ df1 <- edit(data.frame()) #criar dataframe com 4,3 linhas colunas
 
 Leitura de arquivos, na janela3 de comandos, execute:
 
-dado1 <- read.csv('dados_est1.csv') 
+dado1 <- read.csv('bloco1.csv') 
 
 note a mensagem de erro, quer dizer que está lendo com separador de campo errado.
 
@@ -530,7 +530,7 @@ note a mensagem de erro, quer dizer que está lendo com separador de campo errad
 
 
 ```{r }
-dado2 <- read.csv2('dados_est1.csv')
+dado2 <- read.csv2('bloco1.csv')
 head(dado2)
 ```
 
