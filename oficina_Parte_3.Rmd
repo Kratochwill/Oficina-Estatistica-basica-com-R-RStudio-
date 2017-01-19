@@ -65,8 +65,8 @@ O gráfico de barras não é muito informativo com vetores numericos.
 
 
 ```{r} 
-dados_est1 <- read.csv2("dados_est1.csv")
-attach(dados_est1)
+bloco1 <- read.csv2("bloco1.csv")
+attach(bloco1)
 
 barplot(H, horiz = F)
 ```
@@ -491,7 +491,7 @@ E dar uma cor...automatica..
 boxplot(selecao$V2 ~ selecao$V1, data=selecao, las=2, col=rainbow(27))
 ```
 
-
+**Dica**
 Rampas de cores que podem ser usadas (dentre outras) : heat.colors(), terrain.colors(), topo.colors() e cm.colors(). 
 
 O pacote RColorBrewer cria cores ou niveis de cinza atraves de gray(). 
