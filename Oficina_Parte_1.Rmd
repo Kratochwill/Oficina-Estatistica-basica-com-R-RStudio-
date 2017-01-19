@@ -1,0 +1,561 @@
+---
+title: "Introdução a Estatística Básica e R(RStudio) -1a. Parte"
+author: "Walter Humberto Subiza Pina"
+date: "10 de janeiro de 2017"
+output: html_document
+---
+
+
+## Exercicio 1
+
+-----------------------------------------------------------------------------------------------
+
+### Explorando o RStudio
+
+Abra o **RStudio**, 
+
+
+ Menu principal: 
+ 
+ *File*: 
+ 
+        new project/new file (script)
+ 
+        Session/Set working directory
+       
+        Tools/Global options/Packages
+
+Janelas:
+
+Temos quatro janelas no RStudio:
+
+ _1 - Janela script_
+ 
+ _2 - Janela ambiente/histórico/arquivos_
+    Tarefa: importar arquivo "dados1.txt" e ver histórico
+    
+ _3 - Janela comandos_: 
+    prompt, comandos a ser executados com tecla enter. Em azul os comandos, as respostas em preto; erros/warnings em vermelho
+    
+    Vamos executar alguns comando e ver as respostas. Por exemplo, qual o meu diretório atual?
+    
+---
+
+```{r }
+getwd()
+```
+
+
+ Para mudar o diretorio, posso digitar o caminho completo...
+
+```{r } 
+setwd( "C:/Users/humberto.pina/Documents/R/treinamento/DGC/R")
+```
+
+Ou através do menu, nas opções */Session/Set working directory/Choose directory (Crtl+Shift+H)*
+
+Vamos usar o R para fazer algumas operações... (vou no super da esquina na Ferrari!)
+
+Aritmética simples
+
+---
+
+```{r } 
+1+3+5+7   # soma de quatro números
+
+2+6+5^2   # incluindo expoentes
+
+sin(pi)   # inclue funções trigonométricas e logarítmicas
+
+4/0       # Inf
+
+sqrt (35) # raiz
+
+sqrt(-35) # NAN
+```
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+## Procurando ajuda???
+ 
+Um bom começo é através de 
+ 
+ **help.start()**    # Ponto inicial com manuais, referencias e material do R
+ 
+ **help.plot()**     # ajuda geral
+ 
+ **help(plot)**      # ajuda da função
+ 
+ **?plot**           # mesma coisa 
+ 
+ **apropos("plot")** # lista completa de todas as funções que contem a palavra plot
+ 
+ **args(var)**       # lista dos argumentos da função var
+ 
+ **example(plot)**   # me mostra um exemplo da função? (nem todos os pacotes tem exemplos)
+ 
+Na **WEB**, procure por exemplo em [rseek](http://rseek.org) ou [cranstastic](http://crantastic.org/) onde pode procurar por pacotes específicos e informação detalhada.
+ 
+E no nosso exemplo de sqrt (-35)?
+
+?as.complex
+
+ Impor ou forçar o tipo de dado (coerce)
+ 
+```{r } 
+as.complex(-35)
+
+sqrt(as.complex(-35))
+
+```
+
+---
+
+ _4 - janela gráficos, pacotes, ajuda, visualizador_
+      
+Vamos instalar pacote  o "ggvis", ou um outro qualquer através da aba "Packages/Install"
+
+Agora  na janela 2, importamos "dados1.txt", usando /Import Dataset, da janela 2 usando read.delim ou read.delim2
+
+
+```{r }
+read.delim('dados1.txt', sep="")
+```
+
+Note que o R importou a primeira linha como cabeçalho, quando não temos devemos incluir um _header=F_.
+
+Nesse caso a _leitura não é armazenada_, devemos fazer isso explicitamente, atribuindo a leitura do arquivo a uma variavel. Vamos evitar que a leitura seja apresentada, mas o comando em R é:
+
+_dados1 <- read.delim('dados1.txt', sep="",header=F)_
+
+```{r echo=FALSE}
+dados1 <- read.delim('dados1.txt', sep="",header=F)
+```
+
+
+---
+
+```{r}
+# Examen do arquivo ..ver primeiras ou ultimas linhas do arquivo
+head(dados1)
+
+head(dados1, n=10) # aqui quero ver as primeiras 10 linhas
+
+tail(dados1)       # ultimas linhas do arquivo
+
+str(dados1)        # ver a estrutura do arquivo
+
+dim(dados1)        # tamanho
+
+```
+
+
+ Na janela 3, executar:
+ 
+ 
+```{r} 
+hist(dados1$V3)
+```
+
+
+---
+
+### Criando objetos
+
+
+```{r} 
+x   <-  sqrt(35)    # Crio o objeto x, colocando o valor através de  ALT + "-"
+                    # a seta no sentido contrário também é válida "->"
+
+x                   # mostra o valor da variavel "x"
+
+(x   <-  sqrt(20))  # outra forma de atribuir e mostrar o valor atribuido
+
+y = sin(3)          # outra forma de atribuir valores, o valor da direita va para a variável a esquerda
+y
+
+z <- tan(pi); z     # o ";" permite executar mais de um comando na mesma linha
+```
+
+
+---
+
+### Apagando objetos
+
+ O comando rm() ou a vazorinha nas janelas 2 e 4 ajudam à faxina..
+
+```{r} 
+rm(x)
+
+rm(y,z)
+
+# cuidado com o seguinte comando!! ele apaga todas as variavéis e funções do seu espaço de trabalho...
+
+# rm(list = ls())
+```
+
+---
+
+### Nomes de variáveis
+
+```{r} 
+b1_1 = 10 # o underscore permitido
+
+b1.1 = 5  # 0 ponto permitido
+
+# 2bis = 1  # não pode começar com número, tente esse comando na janela 3 (sem #)
+
+# a-1 = 3   # não pode ter hifen, tente esse comando na janela 3 (sem #)
+```
+
+---
+
+### Attach e detach
+
+Muitas vezes queremos simplificar o código quando nos referimos a coluna ou variáveis de uma matriz, em vez de referir
+a variável através de
+Meu_nome_de_arquivo$nome_de_variavel,
+posso usar o comando attach(Meu_nome_de_arquivo). 
+
+Ele permite que o sistema pesquise diretamente pelo nome da variável.
+
+Tenha cuidado de quando não precisar mais trabalhar com uma variável, usar o detach(Meu_nome_de_arquivo), já que pode
+acontecer de ter o mesmo nome de variável em mais de um arquivo e o nome vai ser colocado na primeira variável que aparecer.
+
+```{r }
+attach(dados1)
+
+head(V3)
+
+detach(dados1)
+```
+
+---
+
+### Algumas funcoes matematicas uteis...
+
+
+| Nome     |  função                                                 |
+|----------|---------------------------------------------------------|
+|  abs()   | calcula o valor absoluto                                |
+|  sum()   | a suma de todos os valores nos dados de entrada         |
+|  mean()  | a media aritmetica                                      |
+|  sd()    | o desvio padrão                                         |
+|  max()   | o máximo valor                                          |
+|  min()   | o mínimo valor                                          |
+|  range() | retorna o valor mínimo e máximo                         |
+|  round() | arredonda os valores decimas, por padrão= 0, ver ?round |
+
+
+ 
+### alguns exemplos:
+
+
+```{r }
+mean(dados1$V3)                # calcular a media de dados1$V3
+
+sum(dados1$V3)                 # e a suma?
+
+sum(abs(dados1$V3))            # e a soma dos valores absolutos
+
+round(sum(abs(dados1$V3)), 2) # e arrendondados a duas casas decimais?
+  
+```
+
+
+FIM PRIMEIRA PARTE CALCULOS SIMPLES CONTINUA CONCEITOS DE ESTATISTICA
+
+----
+
+### importar dados 
+
+Ver R-data Import - Export na documentação
+
+ Prática em R: _frequencias, caule e folhas_
+
+
+```{r }
+stem(dados1$V3, scale=1)      # experimentar com diferentes escalas
+
+dados2 <- read.delim("dados2.txt")                              # importar arquivo dados2.txt, via janela 2
+
+stem(dados2$resp)             # experimentar com diferentes escalas
+
+# Tabelas
+
+tabelar <- read.delim2("tabelar.txt")    # importar tabelar.txt, ver via janela 2. Separador decimal??
+head(tabelar)
+
+table(tabelar$Regiao_Procedencia,tabelar$Est_Civil)
+
+table(tabelar$Regiao_Procedencia,tabelar$Est_Civil, tabelar$Grau_Inst )
+
+
+
+prop.table(table(tabelar$Grau_Inst)) # frequencias
+
+
+prop.table(table(tabelar$Est_Civil)) # e pelo estado civil?
+
+stem(tabelar$Salario, scale=2)
+```
+
+
+FIM DE FREQUENCIAS, CAULE E FOLHAS
+
+---
+
+### OBJETOS EM R: VETORES, MATRIZES, LISTAS
+
+ Funções úteis para tratamento de dados:
+
+--- 
+
+
+| Nome     |  função                                                                |
+|----------|------------------------------------------------------------------------|
+| seq()    | gera uma sequencia, especificando começo, fim e incremento             |
+| rep()    | repete os elementos de vetores ou listas                               |
+| sort()   | ordena um vetor, trabalha com números, carateres ou valores lógicos    |
+| rev()    | inverte os elementos da estrutura de dados para os quais se especifica |
+| str()    | mostra a estrutura dos dados                                           |
+| append() | junta vetores o listas                                                 |
+| is.X()   | verifica a classe de um objeto R                                       |
+| as.X()   | Converte um objeto R em outra classe                                   |
+| unlist() | separa listas para produzir vetores                                    |
+
+
+---
+
+Vetores
+
+Os vetores não podem misturar tipos de dados, se cria um vetor com dados misturados, R tratará de transfomarlos num único tipo.
+
+As operações com vetores é um dos pontos altos do R...
+
+---
+
+
+```{r }
+vetor1 <- c(1,3,5,7,9,13) # comando concatene
+str(vetor1)               # que contem o vetor1?
+
+vetor2 = seq(3, 30, 2)   # comando sequencia
+
+## visualizando resultados:
+vetor2
+print(vetor2)
+
+(vetor3  <-  rep(1,5))     # comando repetir
+
+vetor4 <-  rep (c(3,"B",1), c(5, 4, 3))
+vetor4
+```
+
+
+Operações com vetores, Produto, soma...
+
+
+```{r }
+vec5 <- vetor1*2
+vec5
+
+vec6 <- vetor1+vetor2
+vetor1
+vetor2
+vec6                   # note que ao operar sobre dois vetores de diferente tamanho, o vetor de comprimento menor
+                       # é repetido até atingir o comprimento do maior
+```
+
+---
+
+### amostras aleatorias, funcao _distribuiçao normal_
+
+Ver anexo da distribuição normal. 
+
+
+Cada distribuição de probabilidades tem as seguintes funções:
+
+  q-  para quantís
+  
+  p-  para probabilidade
+  
+  r-  para gerar dados da distribuição
+  
+  d-  para a densidade acumulada da distribuição
+  
+
+No seguinte exemplo, vamos gerar 500 dados da distribuição normal, com media e desvio padrão especificado:
+
+---
+
+
+```{r }
+set.seed(1234)  # a semente garante a repetibilidade dos dados
+
+vetor7 = rnorm(500, mean=2.5, sd=0.8)
+
+plot(vetor7)   # plotagem dos dados, veja a aleatoridade
+
+hist(vetor7)   # histograma, note a forma
+
+mean(vetor7)   # média da amostra, compare com a média especificada
+
+sd(vetor7)     # desvio padrão da amostra
+```
+
+
+---
+
+### Matrizes
+
+Matrizes são objetos em R que _devem todos ter o mesmo número de dados por coluna._
+
+---
+
+```{r }
+# Criar matriz de 100 numeros em 3 linhas (nrow)
+(m1 <- matrix(1:12, ncol = 3)) # visualizar usando mouse na janela 2
+(m2 <- matrix(1:12, ncol = 3, byrow =T))             
+
+# Criar matriz de 100 numeros em 5 colunas (ncol)
+m3  <- matrix(1:100, ncol=5)
+
+
+# pesquisando a matriz
+
+dim(m3)            # dimensao 
+
+length(m3)         # comprimento
+
+dimnames(m3)       # nomes das colunas ou linhas??
+
+colnames(m3) <- c("Valor1","Valor2","Valor3","Valor4","Valor5") # atribue nomes
+
+dimnames(m3)
+
+str(m3)
+```
+
+
+Acessando valores de uma matriz
+
+
+```{r }
+m4 = matrix(rnorm(32, mean=1, sd=3.5), ncol=4)  # crio uma matriz de distribuição normal em quatro colunas
+
+m4[,2]      # segunda coluna
+
+m4[1,]      # primeira linha
+
+m4[2,3]     # valor especifico da segunda linha, terceira coluna
+
+# operações em matrizes
+mean( m4[,1] )   # valor medio da coluna 1
+
+mean( m4 )       # e da matriz?
+
+range( m4 )
+
+sd( m4[,2] )
+
+#ADICIONAR LINHAS OU COLUNAS A UMA MATRIZ
+# Calculo e adicao de uma coluna
+m4 <- cbind(m4, m4[,4]^2)
+
+```
+
+
+---
+
+### Dataframes e listas
+
+O Dataframe em R, tem a vantagem de que as colunas (variáveis) podem ter diferente tipo de dados (numérico, lógico, fatorial..)
+
+Importar dados_est1 com read.csv2
+
+---
+
+
+```{r }
+
+dados_est1 <- read.csv2("dados_est1.csv")
+
+d1 <- dados_est1   #  mudar nome de objeto para trabalho
+
+dim(d1)           # dimensoes linha/col
+
+class(d1)         # clase
+
+str(d1)           # estrutura
+
+summary(d1)       # resumo ver os fatores
+```
+
+---
+
+### Listas
+
+ Listas sao estruturas genéricas e flexíveis que permitem armazenar diversos formatos(incluindo outras listas!), em um único objeto.
+ 
+
+```{r }
+lista1 <- list(A=11:35, B="Texto mensagem", C=matrix(1:15, ncol=3))
+
+lista1$A[5]           # acessando um dos objetos armazenados
+
+lista1$B              # acessando um dos objetos armazenados
+
+
+lista1$C[1,3]         # acessando um elemento da matriz C
+```
+
+
+ Outras forma de entrar dados, ver ?scan primeiro
+
+x4  <- scan()
+
+df1 <- edit(data.frame()) #criar dataframe com 4,3 linhas colunas
+
+Leitura de arquivos, na janela3 de comandos, execute:
+
+dado1 <- read.csv('dados_est1.csv') 
+
+note a mensagem de erro, quer dizer que está lendo com separador de campo errado.
+
+
+?read.table, ver especificamente cvs2
+
+
+```{r }
+dado2 <- read.csv2('dados_est1.csv')
+head(dado2)
+```
+
+
+---
+
+### Gravação de arquivos
+
+Consulte ?write e veja no diretório de trabalho se gravou o arquivo "dado_gravado.csv"
+
+
+```{r }
+write.table(dado2, file='dado_gravado.csv', sep=";", dec=",", col.names=T)
+```
+
+---
+
+
+###praticar com as funções mostradas, usar dados1 quando necessário
+
+
+---
+
+FIM DE TREINAMENTO DE MANHA- DIA 01
+
+Esse trabalho é parte da Oficia de Introdução a Estatística Básica com R (RStudio) - 2017
+
+---
