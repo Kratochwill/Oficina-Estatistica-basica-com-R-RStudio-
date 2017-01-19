@@ -2,7 +2,7 @@
 title: "Introdução a Estatística Básica e R(RStudio) - 4a. Parte"
 author: "Walter Humberto Subiza Pina"
 date: "12 de janeiro de 2017"
-output: pdf_document
+output:  word_document
 ---
 
 ## Trabalhando gráficos, Correlação e Regressão
