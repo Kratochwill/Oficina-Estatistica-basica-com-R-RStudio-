@@ -5,10 +5,6 @@ date: "12 de janeiro de 2017"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Trabalhando gráficos, Correlação e Regressão
 
 Vamos importar um conjunto de dados para trabalhar mais um pouco com gráficos
@@ -105,7 +101,7 @@ A forma mais simples de quantificar a correlação é através da função _cor_
 Existem diversas formas de calcular a correlação, a mais usada é a chamada de "Pearson", que consiste em dividir a covariância das duas variáveis pelo produto do seu respectivo desvio padrão.
 
 
-$$\rho_{XY} =  \frac{ cov(X,Y)} {\sigma_X \sigma_Y}$$
+  $$\rho_{XY} =  \frac{ cov(X,Y)} {\sigma_X \sigma_Y}$$
 
 
 ```{r}
@@ -178,7 +174,7 @@ A regressão, diferente da correlação, procura exprimir a relação entre vari
 A mais simples de todas é a equação linear, que representa uma reta e é expressa como:
 
 
-$$y=ax + b + \epsilon$$
+  $$y=ax + b + \epsilon$$
 
 
 A equação indica que por cada unidade de _x_, o valor da variação de _y_ vem dado por _a_. O valor _b_ é chamado de intercepto da linha com o eixo _x_ e $\epsilon$ é o erro inerente ao processo de coleta das observações.
