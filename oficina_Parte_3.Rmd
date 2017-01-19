@@ -5,10 +5,6 @@ date: "11 de janeiro de 2017"
 output: word_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Gráficos com a função genérica _plot_
 
 ---
