@@ -271,7 +271,7 @@ FIM PRIMEIRA PARTE CALCULOS SIMPLES CONTINUA CONCEITOS DE ESTATISTICA
 
 ### importar dados 
 
-Ver R-data Import - Export na documentação
+Ver "**R-data Import - Export**" na documentação
 
  Prática em R: _frequencias, caule e folhas_
 
@@ -314,17 +314,17 @@ FIM DE FREQUENCIAS, CAULE E FOLHAS
 --- 
 
 
-| Nome     |  função                                                                |
-|----------|------------------------------------------------------------------------|
-| seq()    | gera uma sequencia, especificando começo, fim e incremento             |
-| rep()    | repete os elementos de vetores ou listas                               |
-| sort()   | ordena um vetor, trabalha com números, carateres ou valores lógicos    |
-| rev()    | inverte os elementos da estrutura de dados para os quais se especifica |
-| str()    | mostra a estrutura dos dados                                           |
-| append() | junta vetores o listas                                                 |
-| is.X()   | verifica a classe de um objeto R                                       |
-| as.X()   | Converte um objeto R em outra classe                                   |
-| unlist() | separa listas para produzir vetores                                    |
+| Nome     |  função                                                    | Exemplo |
+|----------|------------------------------------------------------------|---------|
+| seq()    | gera uma sequencia, especificando começo, fim e incremento |seq(1,15,2)|
+| rep()    | repete os elementos de vetores ou listas                   |rep(c(1,2,4),4)|
+| sort()   | ordena um vetor, trabalha com números, carateres ou valores lógicos|sort(c(1,2,5,3,1,2,2,7))|
+| rev()    | inverte os elementos da estrutura de dados para os quais se especifica|rev(c(1,2,5,3,1,2,2,7))|
+| str()    | mostra a estrutura dos dados                               |str(dados1)|
+| append() | adiciona elementos a um vetor                              |append(dados, 1,after=4)|
+| is.X()   | verifica a classe de um objeto R                           |is.numeric(x)|
+| as.X()   | Converte um objeto R em outra classe                       |as.numeric("1","2")|
+| unlist() | separa listas para produzir vetores                        |unlist(list)|
 
 
 ---
@@ -365,15 +365,15 @@ vec5
 vec6 <- vetor1+vetor2
 vetor1
 vetor2
-vec6                   # note que ao operar sobre dois vetores de diferente tamanho, o vetor de comprimento menor
-                       # é repetido até atingir o comprimento do maior
+vec6    # note que ao operar sobre dois vetores de diferente tamanho, o vetor de comprimento menor
+        # é repetido até atingir o comprimento do maior
 ```
 
 ---
 
 ### amostras aleatorias, funcao _distribuiçao normal_
 
-Ver anexo da distribuição normal. 
+**Ver anexo da distribuição normal**. 
 
 
 Cada distribuição de probabilidades tem as seguintes funções:
@@ -472,7 +472,7 @@ m4 <- cbind(m4, m4[,4]^2)
 
 ### Dataframes e listas
 
-O Dataframe em R, tem a vantagem de que as colunas (variáveis) podem ter diferente tipo de dados (numérico, lógico, fatorial..)
+O Dataframe é um tipo especial de matriz, que tem a vantagem de que as colunas (variáveis) podem ter diferente tipo de dados (numérico, lógico, fatorial..)
 
 Importar bloco1 com read.csv2
 
@@ -498,7 +498,9 @@ summary(d1)       # resumo ver os fatores
 
 ### Listas
 
- Listas sao estruturas genéricas e flexíveis que permitem armazenar diversos formatos(incluindo outras listas!), em um único objeto.
+ Listas sao estruturas genéricas e flexíveis que permitem armazenar diversos formatos(incluindo outras listas!), em um único objeto. 
+ 
+Uma lista pode dados texto, numéricos, lógicos de diferente tamanho. 
  
 
 ```{r }
@@ -513,7 +515,7 @@ lista1$C[1,3]         # acessando um elemento da matriz C
 ```
 
 
- Outras forma de entrar dados, ver ?scan primeiro
+ Outras forma de entrar dados, ver ?scan primeiro e experimentar:
 
 x4  <- scan()
 
@@ -559,3 +561,9 @@ FIM DE TREINAMENTO DE MANHA- DIA 01
 Esse trabalho é parte da Oficia de Introdução a Estatística Básica com R (RStudio) - 2017
 
 ---
+
+```{r}
+library(packrat)
+sessionInfo()
+save(list = ls(), file = "Oficina_Parte1_all.Rdata")
+```

@@ -11,7 +11,7 @@ output: html_document
 
 ###Importando dados 
 
-A forma mais fácil é importar dados ascii é a partir do formato csv ou txt. O formato csv pode ser facilmente gerado a partir de planilhas de cálculo, tipo Excel ou Calc. 
+A forma mais fácil é importar dados ascii é a partir do formato csv ou txt. O formato csv pode ser facilmente gerado a partir de planilhas de cálculo, tipo Calc do LibreOffice ou Excel. 
 
 Lendo arquivos de texto
 
@@ -20,14 +20,13 @@ Podemos usar a função genérica _read.table_, ver ?read.table, que apresenta a
 Vejamos alguns exemplos. O arquivo "dados1.txt", tem a seguinte estrutura:
 
 
-| 1 | 1 | -15.15487 |
-|---|---|-----------|
-| 2 | 1 | -12.69161 |
-| 3 | 1 | -15.34216 |
-| 4 | 1 | -16.99144 |
-| 5 | 1 | -10.41146 |
-| 6 | 1 | -18.15309 |
-
+|  1 |  1 | -15.15487 |
+|----|----|-----------|
+|  2 |  1 | -12.69161 |
+|  3 |  1 | -15.34216 |
+|  4 |  1 | -16.99144 |
+|  5 |  1 | -10.41146 |
+|  6 |  1 | -18.15309 |
 
 Vamos ver como fica a sua leitura com _read.table_:
 
@@ -38,11 +37,14 @@ head(exerc01)
 
 ```
 
+---
 
 A função _read.table_, tem como padrão de importação o separador de colunas como "," e o separador decimal como ".", padrão inglês.
 
 Vamos importar agora dois arquivos de dados, "dados2.txt", é um arquivo com cabeçalho e separador decimal de ".";
 o arquivo "dados3.txt", tem cabeçalho mas o separador decimal é ",", pelo que vamos detalhar essas opções na importação.
+
+---
 
 
 ```{r}
@@ -56,6 +58,8 @@ exerc03 <- read.csv(file='dados3.txt',
                     dec=",") # adicionar via Import dataset
 head(exerc03)
 ```
+
+---
 
 O seguinte arquivo é um arquivo csv, gerado a partir de uma planilha Calc do LibreOffice e além do cabeçalho, o separador decimal é "," e o separador de variáveis é";". Ele tem o seguinte aspecto:
 
@@ -71,8 +75,12 @@ O seguinte arquivo é um arquivo csv, gerado a partir de uma planilha Calc do Li
 | 1   | 01A      | LC415 | 186 | Barras  | 96,44  | -0,24 | 4,21  | 4,45    |
 
 
+---
+
 
 Note que na quinta linha tem dados faltantes em duas colunas. A importação será feita com a função _read.cvs_, especificando as particularidades e com a versão adaptada _read.csv2_. 
+
+---
 
 
 ```{r}
@@ -88,9 +96,11 @@ head(est2)
 ```
 
 
+---
 
 Tem diferencas entre est1 e est2?...as duas formas são equivalentes. Ver a estrutura e o resumo de est1 
 
+---
 
 
 ```{r}
@@ -100,9 +110,11 @@ summary(est1)     # Analisar fatores, valores e NAs
 ```
 
 
+---
 
-Forcar variável "Bloco" como fator, ver novamente estrutura e resumo, tem diferenças??
+Forçar variável "Bloco" como fator, ver novamente estrutura e resumo, tem diferenças??
 
+---
 
 
 ```{r}
@@ -114,6 +126,7 @@ summary(est1)
 ```
 
 
+---
 
 Note que quando o summary encontra um fator, ele faz a contagem de elementos por categoria
 
@@ -127,6 +140,8 @@ Veja o seguinte exemplo do comando with. O código em r do exemplo pode ser lido
 _"Com a os dados de mtcars, me faça uma impressão das estatísticas da variável mpg, e adiciona dois gráficos, um da variável mpg com disp e um outro com mpg e wt"_. 
 
 Em R é:
+
+---
 
 
 ```{r}
@@ -152,11 +167,15 @@ describe(est1)
 resumo <- round(describe (est1), 2 ) # guardamos os resultados da função na variável "resumo"
 ```
 
+---
+
 Agora vamos gravar um arquivo csv com tabela já simplificada de estatisticas. Verificar linhas (a variável "vars" nos dá o número da linha) e colunas em "resumo" para imprimir!!! 
 
 neste caso, estamos gravando as **linhas 7:9** e as **colunas  2:5,8:10** . Confira no fragmento de código a seguir.
 
 O arquivo pode ser importado numa planilha Calc ou Excel, atentar para o deslocamento da primeira linha no arquivo de saída.
+
+---
 
 ```{r}
 # crio uma variável para guardar os nomes que desejo nas colunas
@@ -181,7 +200,9 @@ A média está definida como a soma de todas as observações, dividida a quanti
 $$\bar{x} = \frac{1}{n} \sum_{i=1}^{n}x_{i}$$ 
 
 
-Vamos calcular a média  da variável H de "est1", passo a passo? 
+Vamos calcular a média  da variável _H_ do dataframe "est1"?
+
+passo a passo seria: 
 
 
 ```{r}
@@ -197,6 +218,7 @@ total <- sum(H)
 ( H.bar <- total/n )
 ```
 
+---
 
 Muitas vezes temos operações que queremos transformar em funções para poupar tempo e código. 
 
@@ -205,6 +227,9 @@ No menú principal "Code/Extract Function Ctrl+Alt+X" nos facilita construir a f
 O código neste caso pode ser: **sum(x)/length(x)**.
 
 Basta selecionar o código e ir no caminho do menú principal e teremos um resultado com esse:
+
+---
+
 
 ```{r}
 media.aritmetica <- function(x) sum(x)/length(x)
@@ -222,13 +247,17 @@ mean(H)
 
 **moda**
 
-A moda é aquela observação que mais se repete nas no conjunto de dados, como já vimos, pode não existir, tem apenas uma ou muitas..
+A moda é aquela observação que mais se repete no conjunto de dados, como já vimos, pode não existir, ter apenas uma ou muitas..
 
 Vamos construir nossa função passo a passo...
 
-```{r warning=FALSE}
+---
+
+
+```{r warning=FALSE, message=FALSE}
 
 #... funcao moda, basicamente criamos uma tabela com as frequências de cada clase e logo tomamos a de maior frequência
+attach(est1)
 
 moda <- function(x) {
   z <- table(as.vector(x)) 
@@ -257,6 +286,8 @@ moda(Municip)
 A mediana é aquela observação que ocupa a posição central após ser ordenado o vetor, ou seja 50% das observações é menor do que ele e 50% é maior.
 
 A função "_median_" do R faz o cálculo da mediana em qualquer vetor. Vejamos a função do R e vejamos como construir uma função semelhante.
+
+---
 
 
 ```{r warning=FALSE}
@@ -305,11 +336,15 @@ mediana(exerc01$V3)
 
 ---
 
+
 **ponto medio**
 
 O ponto médio, é aquele valor que se encontra na metade entre o valor máximo e mínimo do conjunto analisado. A diferença da mediana, aqui o que interessa é o valor do dado e não sua posição.
 
 _É um parâmetro muito afetado pelos valores extremos e pelas assimetrias nas distribuição das observações._
+
+---
+
 
 ```{r}
 (pmedio <- (max(H)-min(H))/2) # pontos extremos!!
@@ -337,9 +372,10 @@ diff(range(H))
 sum(range(H))
 ```
 
+
 ---
 
-**variancia e desvio padrao**
+**Variancia e desvio padrão**
 
 A fórmula para a variância é:
 
@@ -347,9 +383,11 @@ A fórmula para a variância é:
     \left(x_{i} - \bar{x}\right)^{2}}
 {n-1}$$
 
-Ela é expressa por um somatório de residuos ao quadrado, divida pelo número de observações $n-1$. A razão da divisão por $n-1$, vem de ter perdido um grau de liberdade quando o cálculo da média usada, $\bar{x}$ .
+Ela é expressa por um somatório de residuos ao quadrado, divida pelo número de observações $n-1$. A razão da divisão por $n-1$, vem de ter perdido um grau de liberdade quando o cálculo da média usada na fórmula, $\bar{x}$ .
 
-O R tem a função "_var_", que calcula diretamente a variância
+O _R_ tem a função "_var_", que calcula diretamente a variância
+
+---
 
 
 ```{r}
@@ -366,9 +404,11 @@ var(DTM.H) # variancia
 
 O desvio padrão $\sigma$, vem expresso pela raíz quadrada da variância:
 
-$$\sigma = \sqrt{\frac{\sum\limits_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}} {n-1}}$$
+$$\sigma = \sqrt \sigma^2 =\sqrt{\frac{\sum\limits_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}} {n-1}}$$
 
 O R tem a função "_sd_", que calcula diretamente o desvio padrão.
+
+---
 
 
 ```{r}
@@ -391,3 +431,9 @@ sqrt(var(DTM.H)) #desvio padrao atraves da variancia
 FIM DA SEGUNDA PARTE
 
 ---
+
+```{r}
+sessionInfo()
+
+save(list = ls(), file = "Oficina_Parte2_all.Rdata")
+```

@@ -2,17 +2,19 @@
 title: "Introdução a Estatística Básica e R(RStudio) - 3a. Parte"
 author: "Walter Humberto Subiza Pina"
 date: "11 de janeiro de 2017"
-output: word_document
+output: html_document
 ---
 
 ## Gráficos com a função genérica _plot_
 
 ---
 
- O objetivo é mostrar como usar a função plot do pacote base
- para fazer plotagens básicas, como gráfico de variáveis, histogramas e boxplot
+ O objetivo é mostrar como usar a função _plot_ do pacote _base_
+ para fazer gráficos simples de variáveis, histogramas e boxplot
  
- Arquivo de dados externo: "dados4.csv" (formato csv2, sem cabeçalho) e "dados_est1.csv"
+ Arquivo de dados externo: "dados4.csv" (formato csv2, sem cabeçalho) e "bloco1.csv"
+
+---
 
  quando trabalhamos com graficos é uma boa prática salvar os parámetros gráficos que sao padrão
  
@@ -21,8 +23,11 @@ output: word_document
 pro<-par(no.readonly=TRUE) 
 ```
 
+---
+
 Experimente na janela 3 (console) o seguinte comando R: **demo(graphics)**
 
+---
 
  Os graficos são úteis?? Vejamos o seguinte exemplo
  
@@ -55,8 +60,14 @@ plot(dados4$Valor)
 
 # zoom sobre dados suspeitos
 plot(dados4$Valor, xlim=c(146,160), ylim=c(0.9,1.2))
-# carregar arquivo selecao.csv (formato 2)
+
 ```
+
+---
+
+O anexo **Anscombe** traz um interessante exemplo da utilidade dos gráficos.
+
+---
 
 
 ### Grafico de barras
@@ -80,9 +91,7 @@ conto <- table(Sub.Bloco)
 barplot(conto, 
         ylim= c(0,100),
         main="est1", 
-        xlab="Estacoes por Sub Blocos")
-# horizontal horiz="True"
-
+        xlab="Estacoes por Sub Blocos") 
 ```
 
 
@@ -91,8 +100,8 @@ Os dados podem ser empilhados, usando uma tabela de dupla entrada, nesse caso, v
 
 ```{r} 
 
-conto2 <- table( Sub.Bloco,Bloco)
-color <- c("darkslategray1", "darkslategray3", "darkslategray4", "red")
+(conto2 <- table( Sub.Bloco,Bloco))
+color <- c("darkslategray1", "darkslategray3", "darkslategray4", "darkorange1")
 
 barplot(conto2, 
         ylim = c(0,160),
@@ -102,11 +111,13 @@ barplot(conto2,
 legend("topright", rownames(conto2), fill= color)
 ```
 
+---
 
 Você deve estar-se perguntando como foram escolhidos essas cores especiais, aqui vai a dica...
 
+---
 
-> ### DICA PARA ESCOLHER CORES!!!
+> #### DICA PARA ESCOLHER CORES!!!
 >
 > Instale o pacote "colourpicker", carregue-o e execute o comando: colourPicker(numCols = 3), 
 > sendo o numCols =3 a quantidade de cores a escolher, depois abre uma janela adicional para
@@ -114,15 +125,18 @@ Você deve estar-se perguntando como foram escolhidos essas cores especiais, aqu
 > "navajowhite"  "navajowhite3" "navajowhite4", copie para uma variável e use no script.
 >
 
+---
 
- **Vamos graficar!!**
+#### **Vamos graficar!!**
  
  
 Primeiro uma plotagem simples com alguns controles. Simulamos dados, 300 valores consecutivos e aleatorios entre -5 e +5...veja _?runif_
 
+---
+
 
 ```{r} 
-set.seed(12345) # semente serve para reprodução de valores iguais em dados randómicos (ou  seudo...)
+set.seed(12345) # semente serve para reprodução de valores iguais em dados aleatórios (ou  seudo...)
 
 x<-1:300
 
@@ -136,7 +150,7 @@ plot(x, y,
      xlab="Sequencial", 
      ylab="Valores")
 
-# a cor e o símbolo são simples de mudar com _col_ e _pch_ 
+# a cor e o símbolo são simples de mudar com col e pch 
 # veja ?colors e ?pch, palette
 plot(x, y, 
      xlab="Sequencial", 
@@ -144,7 +158,7 @@ plot(x, y,
      col="red", 
      pch = 25)
 
-# O tamanho do símbolo pode ser mudado com _cex_, experimente valores como 2 e 0.5
+# O tamanho do símbolo pode ser mudado com cex, experimente valores como 2 e 0.5
 plot(x, y, 
      xlab="Sequencial", 
      ylab="Valores", 
@@ -152,7 +166,7 @@ plot(x, y,
      pch = 25, 
      cex=0.5)
 
-# os limites dos eixos podem ser estabelecidos com _xlim_ e _ylim_
+# os limites dos eixos podem ser estabelecidos com xlim e ylim
 plot(x, y, 
      xlab="Sequencial", 
      ylab="Valores", 
@@ -186,9 +200,11 @@ plot(x, y,
 ```
 
 
-Uma funcao muito útil para ter mais controle dos eixos é  _axis_.
+---
 
-Dentre outras coisas, com ela podemos mudamos os valores das marcas, tipo de linha, tamanho, espacamento das linhas, cor, etc. 
+Uma funcao muito útil para ter mais controle dos eixos é  _axis_. Para poder fazer uso da função, primeiro tem de desabilitar o eixo na função _plot()_, incluíndo o parâmetro xaxt="n" e ou yaxt="n".
+
+Com _axis_ podemos mudamos os valores das marcas, tipo de linha, tamanho, espacamento das linhas, cor, etc. 
 
 Vejamos:
 
@@ -196,7 +212,7 @@ Uso da função axis
 
 
 ```{r} 
-par(pro) # voltamos aos valores padrao..
+par(pro) # voltamos aos valores padrão..
 plot(x,y,
      xaxt="n") # o valor xaxt="n", impede de plotar o eixo x
 
@@ -216,7 +232,7 @@ axis(side   = 2,
      at     = c(-4,0,4),
      labels = c("Pequeno","Medio","Grande"))
 
-# a funcao tambem controla a linha e espessura das marcas
+# a função tambem controla a linha e espessura das marcas
 par(pro)
 plot(x,y,
      xaxt = "n",
@@ -245,8 +261,8 @@ abline(v=150)
 
 abline(v=275)
 
-# o se desejar pode tirar toda a borda da plotagem e mostrar apenas os eixos
-# note que o R numera os eixos de 1 a 4 em sentido destrogiro a partir da base
+# Ou se desejar pode tirar toda a borda da plotagem e mostrar apenas os eixos.
+# note que o R numera os eixos de 1 a 4 em sentido destrógiro a partir da base
 
 plot(x,y,
      bty="n",
@@ -340,7 +356,7 @@ mtext(side=2,
 ```
 
 
- Vejamos o caso quando temos uma area de plotagem com varios graficos e eixos semelhantes...
+ Vejamos o caso quando temos uma area de plotagem com varios gráficos e eixos semelhantes...
  
 
 ```{r} 
@@ -370,14 +386,15 @@ mtext(text ="Vários gráficos numa janela só",
       cex  = 1.5)
 ```
 
-
+---
 
 Um outro tipo de grafico, o histograma
+
 
 ```{r} 
 par(pro)
 set.seed(123)
-# geramos duas amostras normais, com parametros diferentes, veja ?_rnorm_
+# geramos duas amostras normais, com parâmetros diferentes, veja ?rnorm
 x <- rnorm(500, 8, 5)
 y <- rnorm(500, 0, 2)
 plot(x, xlab="Amostra X")
@@ -408,8 +425,11 @@ hist(y,
      main   = " Histograma com 20 intervalos")
 ```
 
+---
 
-Geramos uma distribuicao normal assimetrica a direita
+Geramos uma distribuicação normal assimétrica à direita:
+
+---
 
 ```{r}
 z <- cbind(x,y)
@@ -430,6 +450,7 @@ abline(v   = median(z),   # graficamos a mediana da amostra
 
 Distribuição à esquerda
 
+
 ```{r}
 x2 <- rnorm(500,-8, 5)
 y2 <- rnorm(500, 0, 2)
@@ -449,10 +470,16 @@ abline(v   = median(z2),
        lwd = 2)
 ```
 
+---
 
 ### Boxplot
 
-O boxplot faz a plotagem dos 5 numeros, veja ?boxplot
+O boxplot faz a plotagem dos 5 números principais, ou seja, **mínimo, 1o. quartil, mediana, 3o. quartil e máximo**. As cercas estão localizadas por padrão a 1,5 vezes o IQ, mas isso pode ser mudado.
+
+Boxplot é uma ferramenta importante para a identificação de outliers , veja ?boxplot.
+
+---
+
 
 ```{r}
 boxplot(z2)
@@ -466,9 +493,9 @@ boxplot(z2,
         notch      = T)
 ```
 
-Vejamos agora como agrupar por fatores, usamos o arquivo selecao..
+Vejamos agora como agrupar por fatores, usamos o arquivo **selecao**..
 
- _boxplot(formula, data = ...), formula x ~ grupos_
+ _boxplot(formula, data = ...),      formula x ~ grupos_
  
  
 ```{r}
@@ -491,16 +518,18 @@ E dar uma cor...automatica..
 boxplot(selecao$V2 ~ selecao$V1, data=selecao, las=2, col=rainbow(27))
 ```
 
-**Dica**
+
+---
+
 Rampas de cores que podem ser usadas (dentre outras) : heat.colors(), terrain.colors(), topo.colors() e cm.colors(). 
 
-O pacote RColorBrewer cria cores ou niveis de cinza atraves de gray(). 
+O pacote RColorBrewer cria cores ou níveis de cinza através de gray(). 
 
-Exemp: gray(0:10/15) produz 10 niveis de cinza.
+Exemp: gray(0:10/15) produz 10 níveis de cinza.
 
 
 Finalmente alguns titulos nos eixos, convenientemente colocados para nao atrapalhar
- ver opcoes de _plot_ e _par_
+ ver opções de _plot_ e _par_
 
  e para salvar o gráfico, nada mais simples...
 
@@ -532,3 +561,8 @@ Esse script executado não produz saída nenhuma, mas grava no diretório de tra
 Pode-se usar também: win.metafile(), png(), jpeg(), bmp(), tiff(), xfig() e postscript()
 
 FIM DE GRAFICOS 1
+
+```{r}
+sessionInfo()
+save(list = ls(), file = "Oficina_Parte3_all.Rdata")
+```
